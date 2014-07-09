@@ -59,15 +59,15 @@ namespace SendToPath
             string[] args = Environment.GetCommandLineArgs();
             
             // 2 lines of test code to use when not trying the sendto way
-            string folderPathOnly = @"C:\@Temp\RadAsm\RadASM.exe";
-            AddPathToSystemPathVariableInWin8(folderPathOnly);
+            // string folderPathOnly = @"C:\@Temp\RadAsm\RadASM.exe";
+            // AddPathToSystemPathVariableInWin8(folderPathOnly);
 
             try
             {
                 // Gets the path from path + filename
                 // Uncomment these 2 lines when ready to test outside of visual studios using the SendTo menu
-                // string folderPathOnly = GetCurrentPath(args[1]);
-                // AddPathToSystemPathVariableInWin8(folderPathOnly);
+                string folderPathOnly = GetCurrentPath(args[1]);
+                AddPathToSystemPathVariableInWin8(folderPathOnly);
             }
             catch
             {
@@ -151,10 +151,11 @@ namespace SendToPath
                     {
                         // create an object to start a new process
                         Process p = new Process();
+                        p.StartInfo.Verb = "runas";
                         p.StartInfo.UseShellExecute = true;
                         p.StartInfo.FileName = "CMD.EXE";
                         p.StartInfo.Arguments = "/C SETX PATH \"%Path%;" + pathToAdd + "\" /M";
-
+                        MessageBox.Show(p.StartInfo.Arguments.ToString());
                         Process.Start(p.StartInfo);
 
                     }
