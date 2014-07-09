@@ -1,0 +1,9 @@
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Debug\SendToPath.exe.config
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Debug\SendToPath.csprojResolveAssemblyReference.cache
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Debug\SendToPath.Properties.Resources.resources
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Debug\SendToPath.csproj.GenerateResource.Cache
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Debug\SendToPath.exe
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Debug\SendToPath.pdb
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Debug\SendToPath.Form1.resources
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Debug\SendToPath.exe
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Debug\SendToPath.pdb

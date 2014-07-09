@@ -1,0 +1,14 @@
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.exe.config
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.exe
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.pdb
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.Form1.resources
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.Properties.Resources.resources
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.csproj.GenerateResource.Cache
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.exe
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.pdb
+c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.csprojResolveAssemblyReference.cache
+C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.TrustInfo.xml
+C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.exe.manifest
+C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.exe.manifest
+C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.application
+C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.application
