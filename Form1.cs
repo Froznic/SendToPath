@@ -14,8 +14,16 @@ using System.Diagnostics;
 // using System.Data;
 // using System.Drawing;
 // using System.Linq;
-// using System.Text;
+
+// Needed for stringbuilder
+using System.Text;
 // using System.Threading.Tasks;
+
+/* Notes
+ *  For some reason it's adding C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\Extensions\Microsoft\VsGraphics; 
+ *  to the path while testing.  Not sure why.  Deff a bug, I see 2 in there at the max but it doesn't do more than that.  No idea
+ *  why :(
+ * */
 
 namespace SendToPath
 {
@@ -39,10 +47,10 @@ namespace SendToPath
             // hide the form onload.
             // Form hide wasn't doing the job, this seems to better
             // Although this won't be there after I get the settings part implemented
-            this.Opacity = 0.0f;
+            // this.Opacity = 0.0f;
 
             // Hides the icon from displaying in the taskbar and only in the system tray.
-            this.ShowInTaskbar = false; 
+            // this.ShowInTaskbar = false; 
 
             // Testing
             // MessageBox.Show(GetCurrentPathString());
@@ -51,21 +59,21 @@ namespace SendToPath
             string[] args = Environment.GetCommandLineArgs();
             
             // 2 lines of test code to use when not trying the sendto way
-            // string folderPathOnly = @"C:\@Temp\RadAsm\RadASM.exe";
-            // AddPathToSystemPathVariableInWin8(folderPathOnly);
-
+            string folderPathOnly = @"C:\@Temp\RadAsm\RadASM.exe";
+            AddPathToSystemPathVariableInWin8(folderPathOnly);
 
             try
             {
                 // Gets the path from path + filename
-                // Uncomment these 2 lines when ready to test outside of vs
-                string folderPathOnly = GetCurrentPath(args[1]);
-                AddPathToSystemPathVariableInWin8(folderPathOnly);
+                // Uncomment these 2 lines when ready to test outside of visual studios using the SendTo menu
+                // string folderPathOnly = GetCurrentPath(args[1]);
+                // AddPathToSystemPathVariableInWin8(folderPathOnly);
             }
             catch
             {
                 showNotifyBalloon("Couldn't get the path for some reason, maybe running it from visual studios?");
             }
+
             ExitForm();
         }
 
@@ -88,7 +96,6 @@ namespace SendToPath
             }
         }
 
-
         // If windows 8 (not implemented yet)
         // For now this works with win 8, not sure what else
         private void AddPathToSystemPathVariableInWin8(string pathToAdd)
@@ -101,7 +108,6 @@ namespace SendToPath
             // If it returns true, then it's already there and all this can be skipped
             if (!isAlreadyInPathVariable(pathToAdd))
             {
-
                 try
                 {
                     // get non-expanded PATH environment variable    
@@ -113,16 +119,21 @@ namespace SendToPath
                     // MessageBox.Show("Update we're going to add: \r\n" + oldPath + ";" + pathToAdd);
 
                     // create an object to start a new process
-                    // ProcessStartInfo np = new ProcessStartInfo();
+                    //ProcessStartInfo np = new ProcessStartInfo();
                     
-                    // This will redirect the output so that we know exactly what happened
-                    // np.RedirectStandardOutput = true;
+                    //// This will redirect the output so that we know exactly what happened
+                    //np.RedirectStandardOutput = true;
 
-                    // Makes sure that we're using a system shell, not just a child copy
-                    // np.UseShellExecute = true;
+                    //// Makes sure that we're using a system shell, not just a child copy
+                    //np.UseShellExecute = true;
 
-                    // This is the parameters sent right after cmd.exe is launched
-                    // string toExecute = "/K SETX PATH \"%Path%;" + pathToAdd + "\" /M";
+                    //// This is the parameters sent right after cmd.exe is launched
+                    //string toExecute = "/C SETX PATH \"%Path%;" + pathToAdd + "\" /M";
+
+                    //np.FileName = "cmd.exe";
+
+                    // Runs the process as admin, it will as to elevate if not already elevated.  Until I find a workaround, this will have to do.
+                    // np.Verb = "runas";
 
                     // shows the exact text sent into the cmd.exe window, only needed for debugging
                     // MessageBox.Show(toExecute);
@@ -130,24 +141,47 @@ namespace SendToPath
                     // Launches cmd.exe and passes paramters
                     // Process.Start("CMD.EXE", toExecute);
 
-                    Process p = new Process();
-                    p.StartInfo.UseShellExecute = true;
-                    p.StartInfo.FileName = "CMD.EXE";
-                    p.StartInfo.Arguments = "/K SETX PATH \"%Path%;" + pathToAdd + "\" /M";
-                    p.Start();
 
-                    string output = p.StandardOutput.ReadToEnd();
+                    // Start the process
+                    // process isn't starting for some reason
 
-                    // it's not waiting for exit or something
-                    p.WaitForExit();
 
-                    // This doesn't seem to be working for some reason
-                    MessageBox.Show(output);
+                    // using (Process.Start(process.StartInfo.FileName, process.StartInfo.Arguments))
+                    try
+                    {
+                        // create an object to start a new process
+                        Process p = new Process();
+                        p.StartInfo.UseShellExecute = true;
+                        p.StartInfo.FileName = "CMD.EXE";
+                        p.StartInfo.Arguments = "/C SETX PATH \"%Path%;" + pathToAdd + "\" /M";
 
-                    // Updates the user to changes to %path%
-                    showNotifyBalloon(output);
+                        Process.Start(p.StartInfo);
 
-                    // showNotifyBalloon(pathToAdd + " added to the %Path% environment variable.  Should be useable from anywhere now.");
+                    }
+                    catch (System.InvalidOperationException e)
+                    {
+                        MessageBox.Show("This was caught" + e.Data[0].ToString());
+                    }
+                    catch (System.ArgumentNullException e)
+                    {
+                        MessageBox.Show("This was caught" + e.Data[0].ToString());
+                    }
+                    catch (System.ComponentModel.Win32Exception e)
+                    {
+                        MessageBox.Show("This was caught" + e.Data[0].ToString());
+                    }
+                    catch (System.IO.FileNotFoundException e)
+                    {
+                        MessageBox.Show("This was caught" + e.Data[0].ToString());
+                    }
+                    finally
+                    {
+                        showNotifyBalloon(pathToAdd + " added to the %Path% environment variable.  Should be useable from anywhere now.");
+                    }
+
+                   
+
+                    
                 }
                 catch
                 {
@@ -194,7 +228,7 @@ namespace SendToPath
         // Closes after 5 seconds by default
         private void timerClose_Tick(object sender, EventArgs e)
         {
-            this.Close();
+            // this.Close();
         }
 
 
