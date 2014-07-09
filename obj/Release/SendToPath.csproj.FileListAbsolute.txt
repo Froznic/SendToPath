@@ -7,8 +7,3 @@ c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\
 c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.exe
 c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.pdb
 c:\users\mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.csprojResolveAssemblyReference.cache
-C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.TrustInfo.xml
-C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.exe.manifest
-C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.exe.manifest
-C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\bin\Release\SendToPath.application
-C:\Users\Mike\documents\visual studio 2012\Projects\CSharpSendToPath\SendToPath\SendToPath\obj\Release\SendToPath.application

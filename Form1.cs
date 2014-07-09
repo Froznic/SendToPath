@@ -50,7 +50,8 @@ namespace SendToPath
         private void Form1_Load(object sender, EventArgs e)
         {
             // hide the form onload.
-            // Cuz form.hide wasn't working, fucking cheating but fuck it =D
+            // Form hide wasn't doing the job, this seems to better
+            // Although this won't be there after I get the settings part implemented
             this.Opacity = 0.0f;
 
             // Hides the icon from displaying in the taskbar and only in the system tray.
@@ -102,6 +103,7 @@ namespace SendToPath
 
 
         // If windows 8 (not implemented yet)
+        // For now this works with win 8, not sure what else
         private void AddPathToSystemPathVariableInWin8(string pathToAdd)
         {
             // System key to add to path vars, this is not a per user setting but global
@@ -152,11 +154,13 @@ namespace SendToPath
                     // it's not waiting for exit or something
                     p.WaitForExit();
 
+                    // This doesn't seem to be working for some reason
                     MessageBox.Show(output);
 
                     // Updates the user to changes to %path%
                     showNotifyBalloon(output);
-                    //showNotifyBalloon(pathToAdd + " added to the %Path% environment variable.  Should be useable from anywhere now.");
+
+                    // showNotifyBalloon(pathToAdd + " added to the %Path% environment variable.  Should be useable from anywhere now.");
                 }
                 catch
                 {
