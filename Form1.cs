@@ -1,40 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+// Need this for adding/manipulating/reading form elements
 using System.Windows.Forms;
+// Need this to use the Path object
 using System.IO;
-using Microsoft.Win32;
+// Need this to use Windows Principal, WindowsIdentiy and WindowsBuiltInRole objects
 using System.Security.Principal;
+// Needed to use the Process object to load apps from c#, particularly cmd.exe
 using System.Diagnostics;
 
-using System.Windows;
-using System.Runtime.Remoting;
-using System.Drawing.Drawing2D;
-using System.ComponentModel.Design;
-
-using System.Runtime.InteropServices;
-  
-using System.Windows.Forms.Design;
-
-using System.Globalization;
-
-
-
-
+// These can probably be removed but leaving them here in case I need any of them later (they're common but not neccessary right now)
+// using System.Collections.Generic;
+// using System.ComponentModel;
+// using System.Data;
+// using System.Drawing;
+// using System.Linq;
+// using System.Text;
+// using System.Threading.Tasks;
 
 namespace SendToPath
 {
     
     public partial class Form1 : Form
     {
-
-
-
         // Path to edit System variables in the registry:
         // HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment
         // Backup Info:
