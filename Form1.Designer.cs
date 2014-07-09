@@ -174,7 +174,7 @@
             this.Controls.Add(this.label1);
             this.Icon = global::SendToPath.Properties.Resources.Send_To_Path_Icon;
             this.Name = "Form1";
-            this.Text = "Simple SendTo Path .4";
+            this.Text = "Simple SendTo Path .5";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
