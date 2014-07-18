@@ -1,5 +1,6 @@
 ﻿using System;
 // Need this for adding/manipulating/reading form elements
+using System.Linq;
 using System.Windows.Forms;
 // Need this to use the Path object
 using System.IO;
@@ -7,6 +8,9 @@ using System.IO;
 using System.Security.Principal;
 // Needed to use the Process object to load apps from c#, particularly cmd.exe
 using System.Diagnostics;
+
+// Need this to get the OS version info in an easier format to use
+using System.Management;
 
 // These can probably be removed but leaving them here in case I need any of them later (they're common but not neccessary right now)
 // using System.Collections.Generic;
@@ -44,6 +48,7 @@ namespace SendToPath
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             // hide the form onload.
             // Form hide wasn't doing the job, this seems to better
             // Although this won't be there after I get the settings part implemented
@@ -52,29 +57,79 @@ namespace SendToPath
             // Hides the icon from displaying in the taskbar and only in the system tray.
             // this.ShowInTaskbar = false; 
 
-            // Testing
-            // MessageBox.Show(GetCurrentPathString());
+            // If no file has been passed into the program, run the form and initiate setup and explain how the app will work. 
+            // Also copy it to the sendto folder
 
             // Get the arguments passed when clicking SendTo in the windows cascading menu
             string[] args = Environment.GetCommandLineArgs();
-            
-            // 2 lines of test code to use when not trying the sendto way
-            // string folderPathOnly = @"C:\@Temp\RadAsm\RadASM.exe";
-            // AddPathToSystemPathVariableInWin8(folderPathOnly);
 
+
+            if ( args.Length == 1 ) // No extra args have been passed, do setup
+            {
+                // If this is being ran directly from the exe
+                CopyInstallFiles();
+
+            }
+            else
+            {
+                // Testing
+                // MessageBox.Show(GetCurrentPathString());
+
+
+
+                // 2 lines of test code to use when not trying the sendto way
+                // string folderPathOnly = @"C:\@Temp\RadAsm\RadASM.exe";
+                // AddPathToSystemPathVariableInWin8(folderPathOnly);
+
+                try
+                {
+                    // Gets the path from path + filename
+                    // Uncomment these 2 lines when ready to test outside of visual studios using the SendTo menu
+                    string folderPathOnly = GetCurrentPath(args[1]);
+                    AddPathToSystemPathVariableInWin8(folderPathOnly);
+                }
+                catch
+                {
+                    showNotifyBalloon("Couldn't get the path for some reason, maybe running it from visual studios?");
+                }
+            }
+            ExitForm();
+        }
+
+        private void CopyInstallFiles()
+        {
+            // Environment.GetFolderPath(Environment.SpecialFolder.SendTo)
             try
             {
-                // Gets the path from path + filename
-                // Uncomment these 2 lines when ready to test outside of visual studios using the SendTo menu
-                string folderPathOnly = GetCurrentPath(args[1]);
-                AddPathToSystemPathVariableInWin8(folderPathOnly);
+                // Copy this current exe to the proper location
+                File.Copy( Process.GetCurrentProcess().MainModule.FileName, Environment.GetFolderPath( Environment.SpecialFolder.SendTo ) + "\\SendToPath.exe" );
             }
-            catch
+            catch ( System.IO.IOException io )
             {
-                showNotifyBalloon("Couldn't get the path for some reason, maybe running it from visual studios?");
+                // File already exhists, would you like to overwrite?
+                DialogResult overwrite =
+                        MessageBox.Show(
+                        io.Message +
+                            "\r\nWould you like to overwrite?  \r\n\r\n(The program will not work if you do not hit yes.)",
+                        "File already exists",
+                        MessageBoxButtons.YesNo );
+                if ( overwrite == DialogResult.Yes )
+                {
+                    File.Copy( Process.GetCurrentProcess().MainModule.FileName, Environment.GetFolderPath( Environment.SpecialFolder.SendTo ) + "\\SendToPath.exe", true);
+                }
+                else
+                {
+                    // probably don't need this
+                    MessageBox.Show(
+                        "This program was not installed correctly and will not work.  You have to allow it to copy into your Send To path so that when you right click on a folder or file it will actually work." );
+                }
             }
-
-            ExitForm();
+            catch ( Exception exc )
+            {
+                MessageBox.Show(
+                    "For some reason we were unable to copy the install files to the correct location.  Please give the following error info to the author at: \r\nhttps://github.com/Froznic \r\n\r\n" +
+                        exc.Message );
+            }
         }
 
         /// <summary>
@@ -179,10 +234,6 @@ namespace SendToPath
                     {
                         showNotifyBalloon(pathToAdd + " added to the %Path% environment variable.  Should be useable from anywhere now.");
                     }
-
-                   
-
-                    
                 }
                 catch
                 {
@@ -229,7 +280,7 @@ namespace SendToPath
         // Closes after 5 seconds by default
         private void timerClose_Tick(object sender, EventArgs e)
         {
-            // this.Close();
+            this.Close();
         }
 
 
@@ -253,6 +304,11 @@ namespace SendToPath
             // Otherwise return true because it's already in it so it won't add a second one to the path environment variable
             else
                 return true;
+
+        }
+
+        private void cmdSave_Click( object sender, EventArgs e )
+        {
 
         }
 
